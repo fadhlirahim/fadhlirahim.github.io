@@ -302,15 +302,12 @@ h1 em {
 
 /* Longer clips read as longer takes. Only means anything while the lanes run
    horizontally, so it lives with the desktop layout instead of being undone
-   at the mobile breakpoint. */
-@media (min-width: 781px) {
+   at the mobile breakpoint. The research lane is left even: four clips have
+   no room to spare, and a long take there just starves the others. */
+@media (min-width: 1016px) {
   .track--1 .clip:first-child,
   .track--3 .clip:last-child {
     flex-grow: 1.2;
-  }
-
-  .track--2 .clip:first-child {
-    flex-grow: 1.3;
   }
 }
 
@@ -410,8 +407,11 @@ footer span {
 /* ---- responsive -------------------------------------------------------- */
 
 /* Below the breakpoint the lanes stack, so there is no shared horizontal
-   axis left for a ruler or a playhead to mean anything. Drop both. */
-@media (max-width: 780px) {
+   axis left for a ruler or a playhead to mean anything. Drop both.
+   The breakpoint is where the fullest lane can no longer give each of its
+   four clips ~200px: 4x200 + 3x10 gaps + 130 label column + 16 lane padding
+   + 40 page gutters. Crushed clips are worse than stacked ones. */
+@media (max-width: 1015px) {
   .ruler,
   .playhead {
     display: none;
