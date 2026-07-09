@@ -1,0 +1,450 @@
+:root {
+  --bg: #0d0d10;
+  --panel: #16161c;
+  --clip: #1e1e26;
+  --clip-hi: #24242e;
+  --line: #26262f;
+  --ink: #eceaf2;
+  --muted: #8f8e9d;
+  --rec: #ff4d4d;
+
+  /* Where the playhead rests and where it sweeps to. The resting value is
+     also what reduced-motion users see, so both endpoints live here rather
+     than being retyped inside @keyframes. */
+  --playhead-start: 22%;
+  --playhead-end: 92%;
+
+  /* one hue per track */
+  --v1: #35d6c1;
+  --v2: #f2b135;
+  --v3: #9b8cfa;
+
+  --display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --mono: "Martian Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --label-w: 116px;
+  --label-gap: 14px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 20px 20px 90px;
+}
+
+/* ---- transport bar ----------------------------------------------------- */
+
+/* The two chrome bars that bookend the page. */
+.transport,
+footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--panel);
+}
+
+.transport {
+  gap: 12px;
+  padding: 10px 14px;
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.transport b {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.rec {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--rec);
+}
+
+.rec i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--rec);
+  animation: pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 0.25;
+  }
+}
+
+/* ---- hero -------------------------------------------------------------- */
+
+.hero {
+  padding: clamp(48px, 9vh, 78px) 0 clamp(44px, 8vh, 66px);
+}
+
+h1 {
+  margin: 0 0 26px;
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(36px, 6vw, 74px);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+/* The second sentence is the thesis, so it gets its own line — and the
+   gradient then runs cleanly left-to-right across it rather than picking up
+   wherever the first sentence happened to break. */
+h1 em {
+  display: block;
+  font-style: normal;
+  color: var(--v1);
+}
+
+/* color: transparent only where the gradient can actually paint the glyphs,
+   otherwise the thesis line renders invisible. */
+@supports (background-clip: text) or (-webkit-background-clip: text) {
+  h1 em {
+    background: linear-gradient(96deg, var(--v1), var(--v2) 55%, var(--v3));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+.intro {
+  max-width: 56ch;
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.75;
+  color: var(--muted);
+}
+
+.intro + .intro {
+  margin-top: 18px;
+}
+
+/* ---- ruler ------------------------------------------------------------- */
+
+/* Offset by the label column so the timecodes line up with the lanes. */
+.ruler {
+  position: relative;
+  height: 26px;
+  margin: 0 0 2px calc(var(--label-w) + var(--label-gap));
+  border-bottom: 1px solid var(--line);
+  background-image: linear-gradient(90deg, var(--line) 0 1px, transparent 1px 100%);
+  background-size: 6.25% 9px;
+  background-position: left bottom;
+  background-repeat: repeat-x;
+}
+
+.ruler span {
+  position: absolute;
+  bottom: 11px;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+
+/* ---- timeline ---------------------------------------------------------- */
+
+.timeline {
+  position: relative;
+}
+
+/* Percentages of the timeline, never the viewport — otherwise the playhead
+   overshoots the lanes on a wide display. */
+.playhead {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--playhead-start);
+  z-index: 3;
+  width: 1px;
+  background: var(--rec);
+  pointer-events: none;
+  box-shadow: 0 0 12px 1px color-mix(in srgb, var(--rec) 55%, transparent);
+  animation: sweep 16s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
+}
+
+.playhead::before {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  border-left: 4.5px solid transparent;
+  border-right: 4.5px solid transparent;
+  border-top: 7px solid var(--rec);
+}
+
+@keyframes sweep {
+  from {
+    left: var(--playhead-start);
+  }
+  to {
+    left: var(--playhead-end);
+  }
+}
+
+.track {
+  display: grid;
+  grid-template-columns: var(--label-w) 1fr;
+  gap: var(--label-gap);
+  margin-bottom: 10px;
+}
+
+.track--1 {
+  --c: var(--v1);
+}
+.track--2 {
+  --c: var(--v2);
+}
+.track--3 {
+  --c: var(--v3);
+}
+
+.track__label {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  padding: 12px 10px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--panel);
+}
+
+.track__label b {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: var(--c);
+}
+
+.track__label h2 {
+  margin: 0;
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.lane {
+  display: flex;
+  gap: 10px;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 62px, var(--line) 62px 63px),
+    var(--panel);
+}
+
+/* ---- clips ------------------------------------------------------------- */
+
+.clip {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 15px 16px 13px 18px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: linear-gradient(180deg, var(--clip), #17171d);
+  color: inherit;
+  text-decoration: none;
+  overflow: hidden;
+  transition:
+    transform 0.26s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.26s ease,
+    background 0.26s ease;
+}
+
+/* the coloured clip edge, as in an NLE */
+.clip::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: var(--c);
+}
+
+.clip:hover,
+.clip:focus-visible {
+  transform: translateY(-3px);
+  border-color: var(--c);
+  background: linear-gradient(180deg, var(--clip-hi), #1a1a21);
+  outline: none;
+}
+
+/* Longer clips read as longer takes. Only means anything while the lanes run
+   horizontally, so it lives with the desktop layout instead of being undone
+   at the mobile breakpoint. */
+@media (min-width: 781px) {
+  .track--1 .clip:first-child,
+  .track--3 .clip:last-child {
+    flex-grow: 1.2;
+  }
+
+  .track--2 .clip:first-child {
+    flex-grow: 1.3;
+  }
+}
+
+.clip h3 {
+  margin: 0 0 7px;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: -0.02em;
+}
+
+.clip p {
+  margin: 0 0 14px;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.clip code {
+  padding: 1px 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--c);
+  font-size: 0.92em;
+}
+
+.tc {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* Pin the timecode to the foot of the clip so it lines up across a lane,
+     whatever the length of the description above it. */
+  margin-top: auto;
+  font-size: 9.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: color 0.26s ease;
+}
+
+.clip:hover .tc,
+.clip:focus-visible .tc {
+  color: var(--c);
+}
+
+.tc i {
+  font-style: normal;
+  transition: transform 0.26s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.clip:hover .tc i,
+.clip:focus-visible .tc i {
+  transform: translate(3px, -3px);
+}
+
+/* ---- footer ------------------------------------------------------------ */
+
+footer {
+  gap: 14px;
+  margin-top: 46px;
+  padding: 12px 14px;
+}
+
+footer nav {
+  display: flex;
+  gap: 10px;
+}
+
+footer a {
+  padding: 6px 14px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition:
+    border-color 0.24s ease,
+    color 0.24s ease;
+}
+
+footer a:hover,
+footer a:focus-visible {
+  border-color: var(--v1);
+  color: var(--v1);
+  outline: none;
+}
+
+footer span {
+  font-size: 9.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ---- responsive -------------------------------------------------------- */
+
+/* Below the breakpoint the lanes stack, so there is no shared horizontal
+   axis left for a ruler or a playhead to mean anything. Drop both. */
+@media (max-width: 780px) {
+  .ruler,
+  .playhead {
+    display: none;
+  }
+
+  .track {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .track__label {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 10px;
+  }
+
+  .lane {
+    flex-direction: column;
+  }
+
+  /* The lane's main axis is now vertical, so the desktop `flex: 1 1 0` would
+     resolve flex-basis against height and collapse every clip to nothing.
+     Let content drive the height instead. */
+  .clip {
+    flex: 0 0 auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
