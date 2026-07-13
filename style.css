@@ -258,8 +258,7 @@ h1 em {
   border: 1px solid var(--line);
   border-radius: 5px;
   background:
-    repeating-linear-gradient(90deg, transparent 0 62px, var(--line) 62px 63px),
-    var(--panel);
+    repeating-linear-gradient(90deg, transparent 0 62px, var(--line) 62px 63px), var(--panel);
 }
 
 /* ---- clips ------------------------------------------------------------- */
@@ -356,6 +355,18 @@ h1 em {
 .tc i {
   font-style: normal;
   transition: transform 0.26s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* a clip with two destinations: plain links inside the timecode row */
+.tc a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.tc a:hover,
+.tc a:focus-visible {
+  color: var(--c);
+  outline: none;
 }
 
 .clip:hover .tc i,
