@@ -28,6 +28,219 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "ProfilePage",
+            "@id": "https://fadhlirahim.github.io/#page",
+            "url": "https://fadhlirahim.github.io/",
+            "name": "Fadhli Rahim",
+            "isPartOf": {
+              "@id": "https://fadhlirahim.github.io/#website"
+            },
+            "mainEntity": {
+              "@id": "https://fadhlirahim.github.io/#person"
+            },
+            "hasPart": {
+              "@id": "https://fadhlirahim.github.io/#works"
+            }
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://fadhlirahim.github.io/#website",
+            "url": "https://fadhlirahim.github.io/",
+            "name": "Fadhli Rahim",
+            "author": {
+              "@id": "https://fadhlirahim.github.io/#person"
+            },
+            "inLanguage": "en"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://fadhlirahim.github.io/#person",
+            "name": "Fadhli Rahim",
+            "url": "https://fadhlirahim.github.io/",
+            "jobTitle": "Software engineer",
+            "description": "Software engineer. I build agents, RAG systems, and AI infrastructure that run in production, and I'm moving from production toward research.",
+            "homeLocation": {
+              "@type": "Country",
+              "name": "Malaysia"
+            },
+            "knowsAbout": [
+              "AI agents",
+              "Retrieval-augmented generation",
+              "AI infrastructure",
+              "LLM evaluation",
+              "Machine learning research"
+            ],
+            "sameAs": [
+              "https://github.com/fadhlirahim",
+              "https://x.com/_fadhli",
+              "https://www.linkedin.com/in/fadhlirahim/"
+            ]
+          },
+          {
+            "@type": "ItemList",
+            "@id": "https://fadhlirahim.github.io/#works",
+            "name": "Work",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "item": {
+                  "@type": "WebApplication",
+                  "name": "ReelFR",
+                  "url": "https://reelfr.com",
+                  "description": "Prompt to short-form video. Auto script writing, editing, TTS, and motion in one pipeline.",
+                  "author": {
+                    "@id": "https://fadhlirahim.github.io/#person"
+                  },
+                  "applicationCategory": "MultimediaApplication"
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "item": {
+                  "@type": "SoftwareApplication",
+                  "name": "Mailslot",
+                  "url": "https://mailslot.dev",
+                  "description": "Open-source, self-hosted email inbox for AI agents. Deploys into your own Cloudflare account.",
+                  "author": {
+                    "@id": "https://fadhlirahim.github.io/#person"
+                  },
+                  "applicationCategory": "DeveloperApplication"
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "item": {
+                  "@type": "LearningResource",
+                  "name": "SWE to Researcher",
+                  "url": "https://fadhlirahim.github.io/swe-to-researcher/",
+                  "description": "The curriculum I am working through. From engineer with an ML gap to independent research that ships.",
+                  "author": {
+                    "@id": "https://fadhlirahim.github.io/#person"
+                  }
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 4,
+                "item": {
+                  "@type": "LearningResource",
+                  "name": "LLM Benchmarks: a field guide",
+                  "url": "https://fadhlirahim.github.io/llm-benchmark-field-guide/",
+                  "description": "What researchers measure, why they picked it, and how every benchmark eventually saturates. 32 specimens across 8 families.",
+                  "author": {
+                    "@id": "https://fadhlirahim.github.io/#person"
+                  }
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 5,
+                "item": {
+                  "@type": "LearningResource",
+                  "name": "Video-Gen Benchmarks",
+                  "url": "https://fadhlirahim.github.io/llm-benchmark-field-guide/video/",
+                  "description": "How Veo, Seedance, Kling, Wan, and LTX get graded: arenas, VBench, physics tests, and the hazards of scoring perception.",
+                  "author": {
+                    "@id": "https://fadhlirahim.github.io/#person"
+                  }
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 6,
+                "item": {
+                  "@type": "SoftwareSourceCode",
+                  "name": "loss-curve",
+                  "url": "https://loss-curve.xzod.workers.dev/",
+                  "description": "An interactive roadmap from engineer to ML researcher. Progress plotted the only honest way.",
+                  "author": {
+                    "@id": "https://fadhlirahim.github.io/#person"
+                  },
+                  "codeRepository": "https://github.com/fadhlirahim/loss-curve"
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 7,
+                "item": {
+                  "@type": "SoftwareSourceCode",
+                  "name": "simple-agent-collabs",
+                  "url": "https://github.com/fadhlirahim/simple-agent-collabs",
+                  "description": "A research loop for one human and parallel LLM agents, in two markdown files. Jev routes each thread to the right model and checks every citation against its source.",
+                  "author": {
+                    "@id": "https://fadhlirahim.github.io/#person"
+                  },
+                  "codeRepository": "https://github.com/fadhlirahim/simple-agent-collabs",
+                  "programmingLanguage": "TypeScript",
+                  "subjectOf": {
+                    "@type": "Report",
+                    "@id": "https://fadhlirahim.github.io/simple-agent-collabs/jev-vs-llm-judge/#report",
+                    "name": "Is Jev a better gate for research findings than an LLM judge?",
+                    "url": "https://fadhlirahim.github.io/simple-agent-collabs/jev-vs-llm-judge/",
+                    "datePublished": "2026-09-24",
+                    "author": {
+                      "@id": "https://fadhlirahim.github.io/#person"
+                    },
+                    "abstract": "Jev first, with an LLM second opinion when Jev is unsure, beat either judge alone on 30 labeled findings, for about a tenth of a cent."
+                  }
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 8,
+                "item": {
+                  "@type": "SoftwareSourceCode",
+                  "name": "codebase-map",
+                  "url": "https://github.com/fadhlirahim/codebase-map",
+                  "description": "An agent skill that generates an interactive, self-contained HTML map of any codebase.",
+                  "author": {
+                    "@id": "https://fadhlirahim.github.io/#person"
+                  },
+                  "codeRepository": "https://github.com/fadhlirahim/codebase-map"
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 9,
+                "item": {
+                  "@type": "SoftwareSourceCode",
+                  "name": "claude-starter-kit",
+                  "url": "https://github.com/fadhlirahim/claude-starter-kit",
+                  "description": "Claude Code conventions, hooks, and slash commands for fullstack TypeScript. TanStack Start, tRPC, better-auth, Drizzle.",
+                  "author": {
+                    "@id": "https://fadhlirahim.github.io/#person"
+                  },
+                  "codeRepository": "https://github.com/fadhlirahim/claude-starter-kit"
+                }
+              },
+              {
+                "@type": "ListItem",
+                "position": 10,
+                "item": {
+                  "@type": "SoftwareSourceCode",
+                  "name": "claude-cf-starter-kit",
+                  "url": "https://github.com/fadhlirahim/claude-cf-starter-kit",
+                  "description": "The Cloudflare-native cut. A /setup skill that bootstraps Workers plus Workers AI in five minutes.",
+                  "author": {
+                    "@id": "https://fadhlirahim.github.io/#person"
+                  },
+                  "codeRepository": "https://github.com/fadhlirahim/claude-cf-starter-kit"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    </script>
   </head>
 
   <body>
@@ -141,6 +354,19 @@
             <h2>Open source</h2>
           </div>
           <div class="lane">
+            <div class="clip">
+              <h3>simple-agent-collabs</h3>
+              <p>
+                A research loop for one human and parallel LLM agents, in two
+                markdown files. Jev routes each thread to the right model and
+                checks every citation against its source. First study: Jev
+                first, an LLM only when Jev is unsure, beat either judge alone.
+              </p>
+              <span class="tc">
+                <a target="_blank" rel="noopener" href="https://github.com/fadhlirahim/simple-agent-collabs">github <i aria-hidden="true">&#8599;</i></a>
+                <a target="_blank" rel="noopener" href="https://fadhlirahim.github.io/simple-agent-collabs/jev-vs-llm-judge/">the research <i aria-hidden="true">&#8599;</i></a>
+              </span>
+            </div>
             <a class="clip" target="_blank" rel="noopener" href="https://github.com/fadhlirahim/codebase-map">
               <h3>codebase-map</h3>
               <p>
